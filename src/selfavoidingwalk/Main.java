@@ -1,53 +1,81 @@
 package selfavoidingwalk;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class Main {
 
 	static int directions[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+	static Random random = new Random();
 
 	public static void main(String[] args) {
-
-		int maze[][] = { { 1, 1, 1, 1 }, { 1, 1, 0, 1 }, { 0, 1, 0, 1 }, { 1, 1, 1, 1 } };
-
-		// boolean visited[][] = new boolean[maze.length][maze[0].length];
-
-		System.out.println(countPaths(maze, 0, 0, 0, 3, 3));
+		slefAvoidingRandomWlak(12);
 
 	}
 
-	public static int countPaths(int maze[][], int x, int y, int count, int dstrow, int dstcol) {
+	public static void slefAvoidingRandomWlak(int steps) {
 
-		if (x == dstrow && y == dstcol) {
-			count++;
-			return count;
+		List<point> pointsList = new ArrayList<point>();
+
+		Hashtable<Integer, List<point>> hashtable = new Hashtable<Integer, List<point>>();
+		int number = 10000;
+
+		int rSqueare = 0;
+
+		for (int i = 0; i < number; i++) {
+
+			hashtable.put(i, new ArrayList<point>());
+
+			Set<String> visited = new HashSet<String>();
+
+			int x = 0;
+			int y = 0;
+
+			for (int j = 1; j <= steps; j++) {
+
+				int r = random.nextInt(4);
+
+				x = x + directions[r][0];
+				y = y + directions[r][1];
+
+				String coordinate = Integer.toString(x) + "," + Integer.toString(y);
+
+				if (!visited.add(coordinate))
+					break;
+				
+				else {
+					hashtable.get(i).add(new point(x, y));
+				}
+			}
 		}
-
-		maze[x][y] = 0;
-
-		if (isValid(x, y, maze)) {
-			
-			if (x + 1 < maze.length && maze[x + 1][y] == 1)
-				count = countPaths(maze, x + 1, y, count, dstrow, dstcol);
-			
-			if (x - 1 >= 0 && maze[x - 1][y] == 1)
-				count = countPaths(maze, x - 1, y, count, dstrow, dstcol);
-
-			if (y + 1 < maze[0].length && maze[x][y + 1] == 1)
-				count = countPaths(maze, x, y + 1, count, dstrow, dstcol);
-
-			if (y - 1 >= 0 && maze[x][y - 1] == 1)
-				count = countPaths(maze, x, y - 1, count, dstrow, dstcol);
+		int counter = 0;
+		for (int i = 0; i < number; i++) {
+			if (hashtable.get(i).size() == steps) {
+				counter++;
+				System.out.println(i + " " + hashtable.get(i) + " " + hashtable.get(i).size());
+			}
 		}
+		System.out.println(counter);
 
-		maze[x][y] = 1;
-
-		return count;
 	}
 
-	public static boolean isValid(int row, int col, int grid[][]) {
+	public static class point {
 
-		return ((row >= 0 && row < grid.length) && (col >= 0 && col < grid[0].length));
+		int x;
+		int y;
+
+		public point(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		public String toString() {
+			return Integer.toString(x) + "," + Integer.toString(y);
+		}
 
 	}
 
