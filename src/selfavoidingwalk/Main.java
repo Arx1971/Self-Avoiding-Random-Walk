@@ -22,9 +22,9 @@ public class Main {
 		List<point> pointsList = new ArrayList<point>();
 
 		Hashtable<Integer, List<point>> hashtable = new Hashtable<Integer, List<point>>();
-		int number = 10000;
+		int number = 500;
 
-		int rSqueare = 0;
+		int rSquare = 0;
 
 		for (int i = 0; i < number; i++) {
 
@@ -34,6 +34,8 @@ public class Main {
 
 			int x = 0;
 			int y = 0;
+
+			visited.add(Integer.toString(x) + "," + Integer.toString(y));
 
 			for (int j = 1; j <= steps; j++) {
 
@@ -46,20 +48,33 @@ public class Main {
 
 				if (!visited.add(coordinate))
 					break;
-				
-				else {
-					hashtable.get(i).add(new point(x, y));
-				}
+
+				if (visited.size() == steps)
+					pointsList.add(new point(x, y));
+
+				hashtable.get(i).add(new point(x, y)); // keep track of all the path with n steps
+
 			}
 		}
+
 		int counter = 0;
 		for (int i = 0; i < number; i++) {
 			if (hashtable.get(i).size() == steps) {
 				counter++;
-				System.out.println(i + " " + hashtable.get(i) + " " + hashtable.get(i).size());
+				System.out.println(hashtable.get(i) + " " + hashtable.get(i).size());
 			}
 		}
 		System.out.println(counter);
+		System.out.println(pointsList);
+		System.out.println(pointsList.size());
+
+		double squaredDistance = 0.0;
+
+		for (int i = 0; i < pointsList.size(); i++) {
+			squaredDistance += Math.pow(pointsList.get(i).x, 2) + Math.pow(pointsList.get(i).y, 2);
+		}
+
+		System.out.println(squaredDistance);
 
 	}
 
