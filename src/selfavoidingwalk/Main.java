@@ -9,71 +9,86 @@ import java.util.Set;
 
 public class Main {
 
+	final static int N_SAW = 100000;
 	static int directions[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		for (int i = 10; i <= 40; i++) {
-			System.out.println(slefAvoidingRandomWlak2D(i));
-		}
+
+		TwoDimensions twoD_ = new TwoDimensions();
+
+		Thread t1 = new Thread(twoD_);
+		t1.start();
 	}
 
-	public static double slefAvoidingRandomWlak2D(int steps) {
+	public static class TwoDimensions extends Thread {
 
-		List<point> pointsList = new ArrayList<point>();
+		int steps;
 
-		Hashtable<Integer, List<point>> hashtable = new Hashtable<Integer, List<point>>();
-		int n_saw = 50000;
+		public TwoDimensions() {
+			// Default Constructor
+		}
 
-		for (int i = 0; i < n_saw; i++) {
+		public TwoDimensions(int steps) {
+			this.steps = steps;
+		}
 
-			hashtable.put(i, new ArrayList<point>());
+		public static double slefAvoidingRandomWlak2D(int steps) {
 
-			Set<String> visited = new HashSet<String>();
+			List<point> pointsList = new ArrayList<point>();
 
-			int x = 0;
-			int y = 0;
+			Hashtable<Integer, List<point>> hashtable = new Hashtable<Integer, List<point>>();
 
-			visited.add(Integer.toString(x) + "," + Integer.toString(y));
+			for (int i = 0; i < N_SAW; i++) {
 
-			for (int j = 1; j <= steps; j++) {
+				hashtable.put(i, new ArrayList<point>());
 
-				int r = random.nextInt(4);
+				Set<String> visited = new HashSet<String>();
 
-				x = x + directions[r][0];
-				y = y + directions[r][1];
+				int x = 0;
+				int y = 0;
 
-				String coordinate = Integer.toString(x) + "," + Integer.toString(y);
+				visited.add(Integer.toString(x) + "," + Integer.toString(y));
 
-				if (!visited.add(coordinate))
-					break;
+				for (int j = 1; j <= steps; j++) {
 
-				if (visited.size() == steps)
-					pointsList.add(new point(x, y));
+					int r = random.nextInt(4);
 
-				hashtable.get(i).add(new point(x, y)); // keep track of all the path with n steps
+					x = x + directions[r][0];
+					y = y + directions[r][1];
 
+					String coordinate = Integer.toString(x) + "," + Integer.toString(y);
+
+					if (!visited.add(coordinate))
+						break;
+
+					if (visited.size() == steps)
+						pointsList.add(new point(x, y));
+
+					hashtable.get(i).add(new point(x, y)); // keep track of all the path with n steps
+
+				}
 			}
+
+			double squaredDistance = 0.0;
+
+			for (int i = 0; i < pointsList.size(); i++) {
+				squaredDistance += Math.pow(pointsList.get(i).x, 2) + Math.pow(pointsList.get(i).y, 2);
+			}
+
+			double avg = (double) (squaredDistance / N_SAW);
+
+			return avg;
+
 		}
 
-		/*
-		 * int counter = 0; for (int i = 0; i < n_saw; i++) { if
-		 * (hashtable.get(i).size() == steps) { counter++;
-		 * System.out.println(hashtable.get(i) + " " + hashtable.get(i).size()); } }
-		 * System.out.println(counter);
-		 */
-		// System.out.println(pointsList);
-		// System.out.println(pointsList.size());
+		public void run() {
 
-		double squaredDistance = 0.0;
+			for (int i = 10; i <= 40; i++) {
+				System.out.println(slefAvoidingRandomWlak2D(i) + " " + Thread.activeCount());
+			}
 
-		for (int i = 0; i < pointsList.size(); i++) {
-			squaredDistance += Math.pow(pointsList.get(i).x, 2) + Math.pow(pointsList.get(i).y, 2);
 		}
-
-		double avg = (double) (squaredDistance / n_saw);
-
-		return avg;
 
 	}
 
