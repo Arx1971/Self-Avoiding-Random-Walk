@@ -13,20 +13,19 @@ public class Main {
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		slefAvoidingRandomWlak(12);
-
+		for (int i = 10; i <= 40; i++) {
+			System.out.println(slefAvoidingRandomWlak2D(i));
+		}
 	}
 
-	public static void slefAvoidingRandomWlak(int steps) {
+	public static double slefAvoidingRandomWlak2D(int steps) {
 
 		List<point> pointsList = new ArrayList<point>();
 
 		Hashtable<Integer, List<point>> hashtable = new Hashtable<Integer, List<point>>();
-		int number = 500;
+		int n_saw = 50000;
 
-		int rSquare = 0;
-
-		for (int i = 0; i < number; i++) {
+		for (int i = 0; i < n_saw; i++) {
 
 			hashtable.put(i, new ArrayList<point>());
 
@@ -57,16 +56,14 @@ public class Main {
 			}
 		}
 
-		int counter = 0;
-		for (int i = 0; i < number; i++) {
-			if (hashtable.get(i).size() == steps) {
-				counter++;
-				System.out.println(hashtable.get(i) + " " + hashtable.get(i).size());
-			}
-		}
-		System.out.println(counter);
-		System.out.println(pointsList);
-		System.out.println(pointsList.size());
+		/*
+		 * int counter = 0; for (int i = 0; i < n_saw; i++) { if
+		 * (hashtable.get(i).size() == steps) { counter++;
+		 * System.out.println(hashtable.get(i) + " " + hashtable.get(i).size()); } }
+		 * System.out.println(counter);
+		 */
+		// System.out.println(pointsList);
+		// System.out.println(pointsList.size());
 
 		double squaredDistance = 0.0;
 
@@ -74,7 +71,9 @@ public class Main {
 			squaredDistance += Math.pow(pointsList.get(i).x, 2) + Math.pow(pointsList.get(i).y, 2);
 		}
 
-		System.out.println(squaredDistance);
+		double avg = (double) (squaredDistance / n_saw);
+
+		return avg;
 
 	}
 
