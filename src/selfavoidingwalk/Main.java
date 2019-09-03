@@ -6,11 +6,12 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
-	final static int N_SAW = 100000;
-	static int directions[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+	final static int N_SAW = 1000000;
+	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static Random random = new Random();
 
 	public static void main(String[] args) {
@@ -18,10 +19,9 @@ public class Main {
 		TwoDimensions twoD_ = new TwoDimensions();
 
 		Thread t1 = new Thread(twoD_);
+
 		t1.start();
 	}
-	
-	// CHANGE MADE
 
 	public static class TwoDimensions extends Thread {
 
@@ -54,10 +54,10 @@ public class Main {
 
 				for (int j = 1; j <= steps; j++) {
 
-					int r = random.nextInt(4);
+					int r = ThreadLocalRandom.current().nextInt(4);
 
-					x = x + directions[r][0];
-					y = y + directions[r][1];
+					x = x + directions2D[r][0];
+					y = y + directions2D[r][1];
 
 					String coordinate = Integer.toString(x) + "," + Integer.toString(y);
 
@@ -86,8 +86,8 @@ public class Main {
 
 		public void run() {
 
-			for (int i = 10; i <= 40; i++) {
-				System.out.println(slefAvoidingRandomWlak2D(i) + " " + Thread.activeCount());
+			for (int i = 1; i <= 40; i++) {
+				System.out.println(slefAvoidingRandomWlak2D(i));
 			}
 
 		}
