@@ -20,6 +20,8 @@ public class Main {
 		Thread t1 = new Thread(twoD_);
 		t1.start();
 	}
+	
+	// CHANGE MADE
 
 	public static class TwoDimensions extends Thread {
 
