@@ -10,8 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
-	final static int N_SAW = 1000000;
+	final static int N_SAW = 10000;
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+	static int directions3D[][] = { { 0, -1, 1 }, { 0, 1, -1 }, { -1, 0, 1 }, { -1, 1, 0 }, { 1, -1, 0 },
+			{ 1, 0, -1 } };
+	
 	static Random random = new Random();
 
 	public static void main(String[] args) {
@@ -108,6 +111,27 @@ public class Main {
 			return Integer.toString(x) + "," + Integer.toString(y);
 		}
 
+	}
+
+	public static class tuple {
+
+		int x;
+		int y;
+		int z;
+
+		public tuple(int x, int y, int z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		public tuple() {
+			// Default Constructor
+		}
+
+		public String toString() {
+			return Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z);
+		}
 	}
 
 }
