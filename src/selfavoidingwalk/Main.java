@@ -14,16 +14,26 @@ public class Main {
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static int directions3D[][] = { { 0, -1, 1 }, { 0, 1, -1 }, { -1, 0, 1 }, { -1, 1, 0 }, { 1, -1, 0 },
 			{ 1, 0, -1 } };
+	static int direction4D[][] = { { 0, 0, 1, -1 }, { -1, 0, 1, 0 }, { 1, 0, -1, 0 }, { 1, 0, 0, -1 }, { 1, -1, 0, 0 },
+			{ -1, 0, 0, 1 }, { -1, 1, 0, 0 }, { 0, -1, 0, 1 }, { 0, 0, -1, 1 }, { 0, 1, -1, 0 }, { 0, 1, 0, -1 },
+			{ 0, -1, 1, 0 } };
 
 	static Random random = new Random();
 
 	public static void main(String[] args) {
 
-		ThreeDimensions twoD_ = new ThreeDimensions();
+		TwoDimensions twoD_ = new TwoDimensions();
 
 		Thread t1 = new Thread(twoD_);
 
 		t1.start();
+
+		ThreeDimensions threeD_ = new ThreeDimensions();
+
+		Thread t2 = new Thread(threeD_);
+
+		t2.start();
+
 	}
 
 	public static class ThreeDimensions extends Thread {
@@ -93,7 +103,7 @@ public class Main {
 
 		public void run() {
 			for (int i = 1; i <= 40; i++) {
-				System.out.println(slefAvoidingRandomWlak3D(i));
+				System.out.println(slefAvoidingRandomWlak3D(i) + "THREE");
 			}
 		}
 
@@ -163,7 +173,7 @@ public class Main {
 		public void run() {
 
 			for (int i = 1; i <= 40; i++) {
-				System.out.println(slefAvoidingRandomWlak2D(i));
+				System.out.println(slefAvoidingRandomWlak2D(i) + " TWO");
 			}
 
 		}
