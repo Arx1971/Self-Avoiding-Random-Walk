@@ -13,27 +13,23 @@ public class Main {
 	static Random random = new Random();
 	final static int N_SAW = random.nextInt(1000000);
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-	static int directions3D[][] = { { 0, -1, 1 }, { 0, 1, -1 }, { -1, 0, 1 }, { -1, 1, 0 }, { 1, -1, 0 },
-			{ 1, 0, -1 } };
-	static int direction4D[][] = { { 0, 0, 1, -1 }, { -1, 0, 1, 0 }, { 1, 0, -1, 0 }, { 1, 0, 0, -1 }, { 1, -1, 0, 0 },
-			{ -1, 0, 0, 1 }, { -1, 1, 0, 0 }, { 0, -1, 0, 1 }, { 0, 0, -1, 1 }, { 0, 1, -1, 0 }, { 0, 1, 0, -1 },
-			{ 0, -1, 1, 0 } };
+	static int directions3D[][] = { { 1, 0, 0 }, { -1, 0, 0 }, { 0, 1, 0 }, { 0, -1, 0 }, { 0, 0, 1 }, { 0, 0, -1 } };
+	static int direction4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
+			{ 0, 0, 1, 0 }, { 0, 1, 0, 0 }, { 1, 0, 0, 0 } };
 
 	public static void main(String[] args) {
 
-		/*
-		 * TwoDimensions twoD_ = new TwoDimensions();
-		 * 
-		 * Thread t1 = new Thread(twoD_);
-		 * 
-		 * t1.start();
-		 * 
-		 * ThreeDimensions threeD_ = new ThreeDimensions();
-		 * 
-		 * Thread t2 = new Thread(threeD_);
-		 * 
-		 * t2.start();
-		 */
+		TwoDimensions twoD_ = new TwoDimensions();
+
+		Thread t1 = new Thread(twoD_);
+
+		t1.start();
+
+		ThreeDimensions threeD_ = new ThreeDimensions();
+
+		Thread t2 = new Thread(threeD_);
+
+		t2.start();
 
 		FourDimensions fourd_ = new FourDimensions();
 
@@ -107,7 +103,7 @@ public class Main {
 		public void run() {
 
 			for (int i = 1; i <= 40; i++) {
-				System.out.println(slefAvoidingRandomWalk2D(i) + " TWO");
+				System.out.println(slefAvoidingRandomWalk2D(i));
 			}
 
 		}
@@ -181,7 +177,7 @@ public class Main {
 
 		public void run() {
 			for (int i = 1; i <= 40; i++) {
-				System.out.println(slefAvoidingRandomWalk3D(i) + "THREE");
+				System.out.println(slefAvoidingRandomWalk3D(i));
 			}
 		}
 
@@ -221,7 +217,7 @@ public class Main {
 
 				for (int j = 1; j <= steps; j++) {
 
-					int r = ThreadLocalRandom.current().nextInt(12);
+					int r = ThreadLocalRandom.current().nextInt(8);
 
 					x = x + direction4D[r][0];
 					y = y + direction4D[r][1];
@@ -257,7 +253,7 @@ public class Main {
 
 		public void run() {
 
-			for (int i = 1; i <= 40; i++) {
+			for (int i = 10; i <= 40; i++) {
 				System.out.println(slefAvoidingRandomWalk4D(i));
 			}
 
