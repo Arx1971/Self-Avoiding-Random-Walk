@@ -11,10 +11,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
 	static Random random = new Random();
-	final static int N_SAW = random.nextInt(1000000);
+	final static int SAMPLES = random.nextInt(1000000);
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static int directions3D[][] = { { 1, 0, 0 }, { -1, 0, 0 }, { 0, 1, 0 }, { 0, -1, 0 }, { 0, 0, 1 }, { 0, 0, -1 } };
-	static int direction4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
+	static int directions4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
 			{ 0, 0, 1, 0 }, { 0, 1, 0, 0 }, { 1, 0, 0, 0 } };
 
 	public static void main(String[] args) {
@@ -25,23 +25,26 @@ public class Main {
 
 		t1.start();
 
-		ThreeDimensions threeD_ = new ThreeDimensions();
-
-		Thread t2 = new Thread(threeD_);
-
-		t2.start();
-
-		FourDimensions fourd_ = new FourDimensions();
-
-		Thread t3 = new Thread(fourd_);
-
-		t3.start();
+		/*
+		 * ThreeDimensions threeD_ = new ThreeDimensions();
+		 * 
+		 * Thread t2 = new Thread(threeD_);
+		 * 
+		 * t2.start();
+		 * 
+		 * FourDimensions fourd_ = new FourDimensions();
+		 * 
+		 * Thread t3 = new Thread(fourd_);
+		 * 
+		 * t3.start();
+		 */
 
 	}
 
 	public static class TwoDimensions extends Thread {
 
 		int steps;
+		static int N_SAW_TOTAL = 0;
 
 		public TwoDimensions() {
 			// Default Constructor
@@ -57,7 +60,7 @@ public class Main {
 
 			Hashtable<Integer, List<point>> pointTable2d = new Hashtable<Integer, List<point>>();
 
-			for (int i = 0; i < N_SAW; i++) {
+			for (int i = 0; i < SAMPLES; i++) {
 
 				pointTable2d.put(i, new ArrayList<point>());
 
@@ -94,7 +97,9 @@ public class Main {
 				squaredDistance += Math.pow(pointsList.get(i).x, 2) + Math.pow(pointsList.get(i).y, 2);
 			}
 
-			double avg = (double) (squaredDistance / N_SAW);
+			double avg = (double) (squaredDistance / pointsList.size());
+
+			N_SAW_TOTAL = pointsList.size();
 
 			return avg;
 
@@ -102,9 +107,13 @@ public class Main {
 
 		public void run() {
 
+			long start = System.currentTimeMillis();
 			for (int i = 1; i <= 40; i++) {
 				System.out.println(slefAvoidingRandomWalk2D(i));
 			}
+			long stop = System.currentTimeMillis();
+
+			System.out.println("Current: " + (double) (stop - start) / 1000);
 
 		}
 
@@ -128,7 +137,7 @@ public class Main {
 
 			Hashtable<Integer, List<tuple>> tupleTable3d = new Hashtable<Integer, List<tuple>>();
 
-			for (int i = 0; i < N_SAW; i++) {
+			for (int i = 0; i < SAMPLES; i++) {
 
 				tupleTable3d.put(i, new ArrayList<tuple>());
 
@@ -169,7 +178,7 @@ public class Main {
 						+ Math.pow(tupleList.get(i).z, 2);
 			}
 
-			double avg = (double) (squaredDistance / N_SAW);
+			double avg = (double) (squaredDistance / SAMPLES);
 
 			return avg;
 
@@ -201,7 +210,7 @@ public class Main {
 
 			Hashtable<Integer, List<fourDCordinates>> fourDcordinatestable = new Hashtable<Integer, List<fourDCordinates>>();
 
-			for (int i = 0; i < N_SAW; i++) {
+			for (int i = 0; i < SAMPLES; i++) {
 
 				int x = 0;
 				int y = 0;
@@ -219,10 +228,10 @@ public class Main {
 
 					int r = ThreadLocalRandom.current().nextInt(8);
 
-					x = x + direction4D[r][0];
-					y = y + direction4D[r][1];
-					z = z + direction4D[r][2];
-					w = w + direction4D[r][3];
+					x = x + directions4D[r][0];
+					y = y + directions4D[r][1];
+					z = z + directions4D[r][2];
+					w = w + directions4D[r][3];
 					String coordinate = Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z)
 							+ "," + Integer.toString(w);
 
@@ -245,7 +254,7 @@ public class Main {
 						+ Math.pow(fouDCordinatesList.get(i).z, 2) + Math.pow(fouDCordinatesList.get(i).w, 2);
 			}
 
-			double avg = (double) (squaredDistance / N_SAW);
+			double avg = (double) (squaredDistance / SAMPLES);
 
 			return avg;
 
