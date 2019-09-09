@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
 	static Random random = new Random();
-	final static int SAMPLES = random.nextInt(1000000);
+	final static int SAMPLES = random.nextInt(5000000);
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static int directions3D[][] = { { 1, 0, 0 }, { -1, 0, 0 }, { 0, 1, 0 }, { 0, -1, 0 }, { 0, 0, 1 }, { 0, 0, -1 } };
 	static int directions4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
@@ -108,7 +108,7 @@ public class Main {
 		public void run() {
 
 			long start = System.currentTimeMillis();
-			for (int i = 1; i <= 40; i++) {
+			for (int i = 10; i <= 40; i++) {
 				System.out.println(slefAvoidingRandomWalk2D(i));
 			}
 			long stop = System.currentTimeMillis();
