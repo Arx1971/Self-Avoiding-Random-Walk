@@ -44,7 +44,6 @@ public class Main {
 	public static class TwoDimensions extends Thread {
 
 		int steps;
-		static int N_SAW_TOTAL = 0;
 
 		public TwoDimensions() {
 			// Default Constructor
@@ -98,8 +97,6 @@ public class Main {
 			}
 
 			double avg = (double) (squaredDistance / pointsList.size());
-
-			N_SAW_TOTAL = pointsList.size();
 
 			return avg;
 
