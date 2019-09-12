@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
 	static Random random = new Random();
-	final static int SAMPLES = random.nextInt(5000000);
+	final static int SAMPLES = random.nextInt(500000);
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static int directions3D[][] = { { 1, 0, 0 }, { -1, 0, 0 }, { 0, 1, 0 }, { 0, -1, 0 }, { 0, 0, 1 }, { 0, 0, -1 } };
 	static int directions4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
