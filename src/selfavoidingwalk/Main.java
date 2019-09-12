@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
 	static Random random = new Random();
-	final static int SAMPLES = random.nextInt(500000);
+	final static int N_SAW = random.nextInt(1000000);
 	static int directions2D[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 	static int directions3D[][] = { { 1, 0, 0 }, { -1, 0, 0 }, { 0, 1, 0 }, { 0, -1, 0 }, { 0, 0, 1 }, { 0, 0, -1 } };
 	static int directions4D[][] = { { 0, 0, 0, -1 }, { 0, 0, -1, 0 }, { 0, -1, 0, 0 }, { -1, 0, 0, 0 }, { 0, 0, 0, 1 },
@@ -59,7 +59,7 @@ public class Main {
 
 			Hashtable<Integer, List<point>> pointTable2d = new Hashtable<Integer, List<point>>();
 
-			for (int i = 0; i < SAMPLES; i++) {
+			for (int i = 0; i < N_SAW; i++) {
 
 				pointTable2d.put(i, new ArrayList<point>());
 
@@ -134,7 +134,7 @@ public class Main {
 
 			Hashtable<Integer, List<tuple>> tupleTable3d = new Hashtable<Integer, List<tuple>>();
 
-			for (int i = 0; i < SAMPLES; i++) {
+			for (int i = 0; i < N_SAW; i++) {
 
 				tupleTable3d.put(i, new ArrayList<tuple>());
 
@@ -175,7 +175,7 @@ public class Main {
 						+ Math.pow(tupleList.get(i).z, 2);
 			}
 
-			double avg = (double) (squaredDistance / SAMPLES);
+			double avg = (double) (squaredDistance / N_SAW);
 
 			return avg;
 
@@ -207,7 +207,7 @@ public class Main {
 
 			Hashtable<Integer, List<fourDCordinates>> fourDcordinatestable = new Hashtable<Integer, List<fourDCordinates>>();
 
-			for (int i = 0; i < SAMPLES; i++) {
+			for (int i = 0; i < N_SAW; i++) {
 
 				int x = 0;
 				int y = 0;
@@ -251,7 +251,7 @@ public class Main {
 						+ Math.pow(fouDCordinatesList.get(i).z, 2) + Math.pow(fouDCordinatesList.get(i).w, 2);
 			}
 
-			double avg = (double) (squaredDistance / SAMPLES);
+			double avg = (double) (squaredDistance / N_SAW);
 
 			return avg;
 
