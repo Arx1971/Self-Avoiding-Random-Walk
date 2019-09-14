@@ -1,15 +1,19 @@
 package sarw;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class Main {
 
-	static Random random = new Random();
+	public static String filepath2d = "/home/adnanrahin/source-code/eclipse-workspace/Self-Avoiding-Random-Walk/src/result_2d.txt";
+	public static String filepath3d = "/home/adnanrahin/source-code/eclipse-workspace/Self-Avoiding-Random-Walk/src/result_3d.txt";
+	public static String filepath4d = "/home/adnanrahin/source-code/eclipse-workspace/Self-Avoiding-Random-Walk/src/result_4d.txt";
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 
 		long start2d = System.currentTimeMillis();
 
@@ -28,27 +32,34 @@ public class Main {
 			}
 		}
 
-		for (int k = 1; k <= Globals.steps; k++) {
+		try (FileWriter writer = new FileWriter(filepath2d)) {
+			for (int k = 1; k <= Globals.steps; k++) {
 
-			int N_SAW_TOTAL = 0;
-			double mean = 0.0;
+				int N_SAW_TOTAL = 0;
+				double mean = 0.0;
 
-			for (int i = 0; i < Globals.N_T; i++) {
+				for (int i = 0; i < Globals.N_T; i++) {
 
-				Map<Integer, List<Points>> LocaldataSet = thread2d[i].dataSet;
-				List<Points> list = new ArrayList<Points>();
+					Map<Integer, List<Points>> LocaldataSet = thread2d[i].dataSet;
+					List<Points> list = new ArrayList<Points>();
 
-				list = LocaldataSet.get(k);
-				N_SAW_TOTAL += list.size();
-				for (int j = 0; j < list.size(); j++) {
-					mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2));
+					list = LocaldataSet.get(k);
+					N_SAW_TOTAL += list.size();
+					for (int j = 0; j < list.size(); j++) {
+						mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2));
+					}
+
 				}
 
+				double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
+
+				writer.write(Integer.toString(k) + "\t" + Double.toString(mean / N_SAW_TOTAL) + "\t\t\t"
+						+ Double.toString(fsaw) + "\n");
+
+				System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
 			}
-
-			double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
-
-			System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
 		}
 
 		long end2d = System.currentTimeMillis();
@@ -75,35 +86,42 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
+		try (FileWriter writer = new FileWriter(filepath3d)) {
+			for (int k = 1; k <= Globals.steps; k++) {
 
-		for (int k = 1; k <= Globals.steps; k++) {
+				int N_SAW_TOTAL = 0;
+				double mean = 0.0;
 
-			int N_SAW_TOTAL = 0;
-			double mean = 0.0;
+				for (int i = 0; i < Globals.N_T; i++) {
 
-			for (int i = 0; i < Globals.N_T; i++) {
+					Map<Integer, List<Tuple>> LocaldataSet = thread3d[i].dataSet;
+					List<Tuple> list = new ArrayList<Tuple>();
 
-				Map<Integer, List<Tuple>> LocaldataSet = thread3d[i].dataSet;
-				List<Tuple> list = new ArrayList<Tuple>();
+					list = LocaldataSet.get(k);
+					N_SAW_TOTAL += list.size();
+					for (int j = 0; j < list.size(); j++) {
+						mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2) + Math.pow(list.get(j).z, 2));
+					}
 
-				list = LocaldataSet.get(k);
-				N_SAW_TOTAL += list.size();
-				for (int j = 0; j < list.size(); j++) {
-					mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2) + Math.pow(list.get(j).z, 2));
 				}
 
+				double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
+
+				writer.write(Integer.toString(k) + "\t" + Double.toString(mean / N_SAW_TOTAL) + "\t\t\t"
+						+ Double.toString(fsaw) + "\n");
+
+				System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
 			}
 
-			double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
+			long end3d = System.currentTimeMillis();
 
-			System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
+			double time3d = (end3d - start3d) / 1000.0;
+
+			System.out.println("Total Time to Execute 3D: " + time3d);
+
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
 		}
-
-		long end3d = System.currentTimeMillis();
-
-		double time3d = (end3d - start3d) / 1000.0;
-
-		System.out.println("Total Time to Execute 3D: " + time3d);
 
 		// Four Dimensions
 
@@ -123,36 +141,44 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
+		try (FileWriter writer = new FileWriter(filepath4d)) {
 
-		for (int k = 1; k <= Globals.steps; k++) {
+			for (int k = 1; k <= Globals.steps; k++) {
 
-			int N_SAW_TOTAL = 0;
-			double mean = 0.0;
+				int N_SAW_TOTAL = 0;
+				double mean = 0.0;
 
-			for (int i = 0; i < Globals.N_T; i++) {
+				for (int i = 0; i < Globals.N_T; i++) {
 
-				Map<Integer, List<FourDpoints>> LocaldataSet = thread4d[i].dataSet;
-				List<FourDpoints> list = new ArrayList<FourDpoints>();
+					Map<Integer, List<FourDpoints>> LocaldataSet = thread4d[i].dataSet;
+					List<FourDpoints> list = new ArrayList<FourDpoints>();
 
-				list = LocaldataSet.get(k);
-				N_SAW_TOTAL += list.size();
-				for (int j = 0; j < list.size(); j++) {
-					mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2) + Math.pow(list.get(j).z, 2)
-							+ Math.pow(list.get(j).w, 2));
+					list = LocaldataSet.get(k);
+					N_SAW_TOTAL += list.size();
+					for (int j = 0; j < list.size(); j++) {
+						mean += (Math.pow(list.get(j).x, 2) + Math.pow(list.get(j).y, 2) + Math.pow(list.get(j).z, 2)
+								+ Math.pow(list.get(j).w, 2));
+					}
+
 				}
 
+				double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
+
+				writer.write(Integer.toString(k) + "\t" + Double.toString(mean / N_SAW_TOTAL) + "\t\t\t"
+						+ Double.toString(fsaw) + "\n");
+
+				System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
 			}
 
-			double fsaw = (double) (N_SAW_TOTAL) / (Globals.N_T * Globals.N_SAW);
+			long end4d = System.currentTimeMillis();
 
-			System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
+			double time4d = (end4d - start4d) / 1000.0;
+
+			System.out.println("Total Time to Execute 4D: " + time4d);
+
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
 		}
-
-		long end4d = System.currentTimeMillis();
-
-		double time4d = (end4d - start4d) / 1000.0;
-
-		System.out.println("Total Time to Execute 3D: " + time4d);
 
 	}
 
