@@ -44,7 +44,7 @@ public class ThreeDimensionWalk extends Thread {
 
 				x += directions[r][0];
 				y += directions[r][1];
-				// z += directions[r][2];
+				z += directions[r][2];
 
 				boolean tmp = visited
 						.contains(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z));
