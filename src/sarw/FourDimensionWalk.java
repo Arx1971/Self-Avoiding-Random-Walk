@@ -38,24 +38,27 @@ public class FourDimensionWalk extends Thread {
 			int z = 0;
 			int w = 0;
 
-			visited.add(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z) + ","
-					+ Integer.toString(w));
+			String s = Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z) + ","
+					+ Integer.toString(w);
+
+			visited.add(s);
 
 			for (int j = 1; j <= steps; j++) {
 
-				int r = ThreadLocalRandom.current().nextInt(6);
+				int r = ThreadLocalRandom.current().nextInt(8);
 
 				x += directions[r][0];
 				y += directions[r][1];
 				z += directions[r][2];
 				w += directions[r][3];
 
-				boolean tmp = visited.contains(Integer.toString(x) + "," + Integer.toString(y) + ","
-						+ Integer.toString(z) + "," + Integer.toString(w));
+				s = Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z) + ","
+						+ Integer.toString(w);
+
+				boolean tmp = visited.contains(s);
 
 				if (tmp == false) {
-					visited.add(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z) + ","
-							+ Integer.toString(w));
+					visited.add(s);
 					dataSet.get(j).add(new FourDpoints(x, y, z, w));
 				} else {
 					break;

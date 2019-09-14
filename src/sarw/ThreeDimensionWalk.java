@@ -36,7 +36,9 @@ public class ThreeDimensionWalk extends Thread {
 			int y = 0;
 			int z = 0;
 
-			visited.add(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z));
+			String s = Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z);
+
+			visited.add(s);
 
 			for (int j = 1; j <= steps; j++) {
 
@@ -46,11 +48,12 @@ public class ThreeDimensionWalk extends Thread {
 				y += directions[r][1];
 				z += directions[r][2];
 
-				boolean tmp = visited
-						.contains(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z));
+				s = Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z);
+
+				boolean tmp = visited.contains(s);
 
 				if (tmp == false) {
-					visited.add(Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(z));
+					visited.add(s);
 					dataSet.get(j).add(new Tuple(x, y, z));
 				} else {
 					break;
