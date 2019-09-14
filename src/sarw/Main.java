@@ -60,15 +60,20 @@ public class Main {
 
 				System.out.println(k + "\t" + (mean / N_SAW_TOTAL) + "\t\t\t" + fsaw);
 			}
+
+			long end2d = System.currentTimeMillis();
+
+			double time2d = (end2d - start2d) / 1000.0;
+
+			writer.write("Total Time to Execute 2D: " + Double.toString(time2d) + "\n");
+
+			writer.close();
+
+			System.out.println("Total Time to Execute 2D: " + time2d);
+
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
-
-		long end2d = System.currentTimeMillis();
-
-		double time = (end2d - start2d) / 1000.0;
-
-		System.out.println("Total Time to Execute 2D: " + time);
 
 		// Three Dimensions
 
@@ -118,6 +123,10 @@ public class Main {
 			long end3d = System.currentTimeMillis();
 
 			double time3d = (end3d - start3d) / 1000.0;
+
+			writer.write("Total Time to Execute 3D: " + Double.toString(time3d) + "\n");
+
+			writer.close();
 
 			System.out.println("Total Time to Execute 3D: " + time3d);
 
@@ -175,6 +184,10 @@ public class Main {
 			long end4d = System.currentTimeMillis();
 
 			double time4d = (end4d - start4d) / 1000.0;
+
+			writer.write("Total Time to Execute 4D: " + Double.toString(time4d) + "\n");
+
+			writer.close();
 
 			System.out.println("Total Time to Execute 4D: " + time4d);
 
