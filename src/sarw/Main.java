@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+// Run Multiple File Server: java -cp /home/fa19/381/ramd2811/public_html/csci370/Self-Avoid.jar sarw.Main
+
 public class Main {
 
 	public static String filepath2d = "/home/adnanrahin/source-code/eclipse-workspace/Self-Avoiding-Random-Walk/src/result_2d.txt";
