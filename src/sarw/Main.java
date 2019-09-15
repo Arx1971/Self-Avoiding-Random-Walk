@@ -75,6 +75,8 @@ public class Main {
 			System.out.println(e);
 		}
 
+		System.gc();
+
 		// Three Dimensions
 
 		long start3d = System.currentTimeMillis();
@@ -133,6 +135,8 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
+
+		System.gc();
 
 		// Four Dimensions
 
@@ -194,6 +198,8 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
+
+		System.gc();
 
 	}
 
